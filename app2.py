@@ -5,6 +5,7 @@ import os
 import streamlit as st
 from utils import reset_conversation
 import re
+import time
 st.title("חיפוש בתוך מסמכים בעזרת בינה מלאכותית")
 st.sidebar.title("App Description")
 with st.sidebar:
