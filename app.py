@@ -111,11 +111,7 @@ embeddings = HuggingFaceEmbeddings(
         model_kwargs={"device": "cpu"},
     )
 
-vectorstore_faiss = FAISS.from_texts( #from texts/from documetns depecds of the data
-    texts,
-    embeddings,
-)
-
+texts = texts[:5]
 # initialize the bm25 retriever and faiss retriever
 
 faiss_vectorstore = FAISS.from_texts(texts,embeddings) #for documents type
