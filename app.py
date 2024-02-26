@@ -132,51 +132,7 @@ ensemble_retriever = EnsembleRetriever(retrievers=[bm25_retriever, faiss_retriev
 ##############
 
 
-# Initialise chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
 
-# Display chat messages from history on app rerun
-
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-
-# Create a function to generate a resposne from the model
-def generate_response(input_text):
-  #docs = docsearch.similarity_search(input_text) #dense
-  docs = ensemble_retriever.get_relevant_documents(query)#ensemble
-
-  # Write the input text from the user onto the chat window
-  with st.chat_message("user"):
-    st.write(input_text)
-    st.session_state.messages.append({"role": "user", "content": input_text})
-
-    # Take the output message and display in the chat box
-  with st.chat_message("assistant"):
-    # st.toast("Running...", icon="⏳")
-
-    response = docs #chain.run(input_documents = docs, question = input_text)
-    message_placeholder = st.empty()
-    full_response = ""
-
-    # Simulate stream of response with milliseconds delay. THis is not true streaming functionality. We use re.split functionality to ensure that line breaks are preserved in the output.
-    for chunk in re.split(r'(\s+)', response):
-        full_response += chunk + " "
-    #  time.sleep(0.05)
-      #Add a blinking cursor to simulate typing
-         message_placeholder.markdown(full_response + "▌")
-    message_placeholder.markdown(full_response)
-
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
-#~~~~~~~~~~~~~~~~~~~~~~~
-#if st.session_state['messages']:
- #   for i in range(len(st.session_state['messages'])):
-  #      message(st.session_state['messages'][i], is_user=True, key=str(i) + '_user')
-#~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Create an input box to take the user''s input question
 prompt = st.chat_input("בצע שאילתת חיפוש...")
 
-if prompt:
-    generate_response(prompt)
+
