@@ -80,16 +80,17 @@ def generate_response(input_text):
        # st.toast("Running...", icon="⏳")
 
         response = docs[0].page_content#chain.run(input_documents = docs, question = input_text)
+        response = response.replace('\n',' ')
         message_placeholder = st.empty()
         full_response = ""
 
         # Simulate stream of response with milliseconds delay. THis is not true streaming functionality. We use re.split functionality to ensure that line breaks are preserved in the output.
-        for chunk in re.split(r'(\s+)', response):
-            full_response += chunk + " "
-            time.sleep(0.05)
+       # for chunk in re.split(r'(\s+)', response):
+        #    full_response += chunk + " "
+        #    time.sleep(0.05)
             # Add a blinking cursor to simulate typing
-            message_placeholder.markdown(full_response + "▌")
-        message_placeholder.markdown(full_response)
+         #   message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(response) #full_response
 
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 #~~~~~~~~~~~~~~~~~~~~~~~
