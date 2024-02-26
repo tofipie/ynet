@@ -43,6 +43,8 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_overlap  = 100,
 )
 docs = text_splitter.split_documents(documents)
+docs = [d.page_content for d in docs]
+
 
 from langchain.embeddings import HuggingFaceEmbeddings
 
@@ -56,18 +58,29 @@ from langchain.vectorstores import FAISS
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 
-vectorstore_faiss = FAISS.from_documents(
-    docs,
-    bedrock_embeddings,
-)
+#vectorstore_faiss = FAISS.from_documents(   docs,    bedrock_embeddings,)
 
-wrapper_store_faiss = VectorStoreIndexWrapper(vectorstore=vectorstore_faiss)
+#wrapper_store_faiss = VectorStoreIndexWrapper(vectorstore=vectorstore_faiss)
+###ENSEMBLE RETRIEVER
 
+
+faiss_vectorstore = FAISS.from_texts(docs,bedrock_embeddings) #for text type
+faiss_retriever = faiss_vectorstore.as_retriever(search_kwargs={"k": 5})
+
+bm25_retriever = BM25Retriever.from_texts(docs)
+bm25_retriever.k = 5
+
+# initialize the ensemble retriever
+ensemble_retriever = EnsembleRetriever(retrievers=[bm25_retriever, faiss_retriever],
+                                       weights=[0.5, 0.5])
+
+####
 
 # Create a function to generate a resposne from the model
-def generate_response(input_text):
+def generate_response(input_text):    
    #This will initiate the LLM and run a similarity search across the input text on your documents
-    docs = vectorstore_faiss.similarity_search(input_text)
+    #docs = faiss_retriever.similarity_search(input_text)
+    docs = ensemble_retriever.get_relevant_documents(input_text)
     
 
    # Write the input text from the user onto the chat window
