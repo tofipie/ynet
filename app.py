@@ -163,14 +163,13 @@ def generate_response(input_text):
 
     # Simulate stream of response with milliseconds delay. THis is not true streaming functionality. We use re.split functionality to ensure that line breaks are preserved in the output.
     for chunk in re.split(r'(\s+)', response):
-      
-      full_response += chunk + " "
+        full_response += chunk + " "
     #  time.sleep(0.05)
       #Add a blinking cursor to simulate typing
-      message_placeholder.markdown(full_response + "▌")
-      message_placeholder.markdown(full_response)
+         message_placeholder.markdown(full_response + "▌")
+         message_placeholder.markdown(full_response)
 
-     st.session_state.messages.append({"role": "assistant", "content": full_response})
+         st.session_state.messages.append({"role": "assistant", "content": full_response})
 #~~~~~~~~~~~~~~~~~~~~~~~
 #if st.session_state['messages']:
  #   for i in range(len(st.session_state['messages'])):
