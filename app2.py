@@ -2,6 +2,16 @@
 
 from urllib.request import urlretrieve
 import os
+import streamlit as st
+from utils import reset_conversation
+
+st.title("חיפוש בתוך מסמכים בעזרת בינה מלאכותית")
+st.sidebar.title("App Description")
+with st.sidebar:
+    st.button('New Chat', on_click=reset_conversation)
+  
+    st.write('Made by Noa Cohen')
+    
 os.makedirs("data", exist_ok=True)
 files = [
     "https://www.irs.gov/pub/irs-pdf/p1544.pdf",
@@ -51,7 +61,6 @@ query = """Is it possible that I get sentenced to jail due to failure in filings
 query_embedding = vectorstore_faiss.embedding_function(query)
 relevant_documents = vectorstore_faiss.similarity_search_by_vector(query_embedding)
 
-relevant_documents[0].page_content
 
 print(f'{len(relevant_documents)} documents are fetched which are relevant to the query.')
 print('----')
