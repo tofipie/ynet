@@ -56,22 +56,11 @@ vectorstore_faiss = FAISS.from_documents(
 
 wrapper_store_faiss = VectorStoreIndexWrapper(vectorstore=vectorstore_faiss)
 
-query = """Is it possible that I get sentenced to jail due to failure in filings?"""
-
-query_embedding = vectorstore_faiss.embedding_function(query)
-relevant_documents = vectorstore_faiss.similarity_search_by_vector(query_embedding)
-
-
-print(f'{len(relevant_documents)} documents are fetched which are relevant to the query.')
-print('----')
-for i, rel_doc in enumerate(relevant_documents):
-    print(f'## Document {i+1}: {rel_doc.page_content}.......')
-    print('---')
 
 # Create a function to generate a resposne from the model
 def generate_response(input_text):
    #This will initiate the LLM and run a similarity search across the input text on your documents
-    docs = docsearch.similarity_search(input_text)
+    docs = vectorstore_faiss.similarity_search(input_text)
     
 
    # Write the input text from the user onto the chat window
