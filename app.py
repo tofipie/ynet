@@ -167,9 +167,9 @@ def generate_response(input_text):
     #  time.sleep(0.05)
       #Add a blinking cursor to simulate typing
          message_placeholder.markdown(full_response + "▌")
-         message_placeholder.markdown(full_response)
+    message_placeholder.markdown(full_response)
 
-         st.session_state.messages.append({"role": "assistant", "content": full_response})
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
 #~~~~~~~~~~~~~~~~~~~~~~~
 #if st.session_state['messages']:
  #   for i in range(len(st.session_state['messages'])):
