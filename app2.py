@@ -4,7 +4,7 @@ from urllib.request import urlretrieve
 import os
 import streamlit as st
 from utils import reset_conversation
-
+import re
 st.title("חיפוש בתוך מסמכים בעזרת בינה מלאכותית")
 st.sidebar.title("App Description")
 with st.sidebar:
@@ -21,6 +21,12 @@ files = [
 for url in files:
     file_path = os.path.join("data", url.rpartition("/")[2])
     urlretrieve(url, file_path)
+
+###
+#DATA_PATH = "data/"
+#loader = PyPDFDirectoryLoader("./pdfs/")
+
+###
 
 import numpy as np
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
