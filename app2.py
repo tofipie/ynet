@@ -107,7 +107,7 @@ def generate_response(input_text):
          #   message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(response) #full_response
 
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        st.session_state.messages.append({"role": "assistant", "content": response})
 #~~~~~~~~~~~~~~~~~~~~~~~
 #if st.session_state['messages']:
  #   for i in range(len(st.session_state['messages'])):
