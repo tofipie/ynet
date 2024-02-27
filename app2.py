@@ -57,7 +57,7 @@ bedrock_embeddings = HuggingFaceEmbeddings(
 
 from langchain.chains.question_answering import load_qa_chain
 from langchain.vectorstores import FAISS
-from langchain.indexes import VectorstoreIndexCreator
+from langchain.indexes import VectorstoreIndexCreator 
 from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 
 #vectorstore_faiss = FAISS.from_documents(   docs,    bedrock_embeddings,)
