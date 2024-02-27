@@ -81,8 +81,8 @@ ensemble_retriever = EnsembleRetriever(retrievers=[bm25_retriever, faiss_retriev
 # Create a function to generate a resposne from the model
 def generate_response(input_text):    
    #This will initiate the LLM and run a similarity search across the input text on your documents
-    #docs = faiss_retriever.similarity_search(input_text)
-    docs = ensemble_retriever.get_relevant_documents(input_text)
+    docs = faiss_retriever.similarity_search(input_text)
+   # docs = ensemble_retriever.get_relevant_documents(input_text)
     
 
    # Write the input text from the user onto the chat window
