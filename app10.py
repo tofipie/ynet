@@ -44,7 +44,7 @@ HUGGINGFACEHUB_API_TOKEN = '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'
 #HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN'
 
 
-loader = PyPDFDirectoryLoader("./pdfs/")
+loader = PyPDFDirectoryLoader("./data/")
 
 documents = loader.load()
 text_splitter = RecursiveCharacterTextSplitter(
