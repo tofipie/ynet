@@ -68,11 +68,12 @@ def main():
     st.title("חיפוש במסמכים בעזרת בינה מלאכותית")
     with st.sidebar:
         st.title('💬 PDF Chat App')
+        st.button('New Chat', on_click=reset_conversation)
         st.markdown('''
         ## About
         בחר מסמך ולאחר מכן שאל שאלה
         ''')
-        st.button('New Chat', on_click=reset_conversation)
+       
         st.write('Made by Noa Cohen')
        
     custom_names = list(pdf_mapping.keys())
