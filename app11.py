@@ -30,7 +30,12 @@ import json
 
 # from retriver import load_local_vector_store
 
+from utils import reset_conversation
+import re
+import time
+from langchain.retrievers import BM25Retriever, EnsembleRetriever
 
+  
 
 #boto3_bedrock = session.client("bedrock", config=retry_config)
 #boto3_bedrock_runtime = session.client("bedrock-runtime", config=retry_config)
@@ -46,11 +51,11 @@ def read_pdf(file_path):
     return text
 
 pdf_mapping = {
-    'Health Insurance Benefits': 'tax benefits due to health insurance.pdf',
-    'Tax Regime':'new-regime-vs-old-regime.pdf',
-    'שימור ידע - העברה מחשבון לחשבון' : 'שימור ידע - העברה מחשבון לחשבון.pdf',
-    'שימור ידע - מחיקת חובות':'שימור ידע - מחיקת חובות.pdf',
-    'שאילתות שומה ונכסים' :'שאילתות שומה ונכסים.pdf'
+    'Health Insurance Benefits': 'data/tax benefits due to health insurance.pdf',
+    'Tax Regime':'data/new-regime-vs-old-regime.pdf'
+   # 'שימור ידע - העברה מחשבון לחשבון' : 'שימור ידע - העברה מחשבון לחשבון.pdf',
+    #'שימור ידע - מחיקת חובות':'שימור ידע - מחיקת חובות.pdf',
+    #'שאילתות שומה ונכסים' :'שאילתות שומה ונכסים.pdf'
   #  'Reinforcement Learning': 'pdfs/SuttonBartoIPRLBook2ndEd.pdf',
    # 'GPT-4 All Training': 'pdfs/2023_GPT4All_Technical_Report.pdf',
 }
@@ -60,13 +65,14 @@ pdf_mapping = {
 
 # Main Streamlit app
 def main():
-    st.title("Chat PDF Using AWS Bedrock and Anthropic Claude")
+    st.title("חיפוש במסמכים בעזרת בינה מלאכותית")
     with st.sidebar:
         st.title('💬 PDF Chat App')
         st.markdown('''
         ## About
         בחר מסמך ולאחר מכן שאל שאלה
         ''')
+        st.button('New Chat', on_click=reset_conversation)
         st.write('Made by Noa Cohen')
        
     custom_names = list(pdf_mapping.keys())
