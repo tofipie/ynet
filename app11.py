@@ -51,8 +51,8 @@ def read_pdf(file_path):
     return text
 
 pdf_mapping = {
-    'Health Insurance Benefits': 'data/tax benefits due to health insurance.pdf',
-    'Tax Regime':'data/new-regime-vs-old-regime.pdf'
+    'Health Insurance Benefits': 'tax benefits due to health insurance.pdf',
+    'Tax Regime':'new-regime-vs-old-regime.pdf'
    # 'שימור ידע - העברה מחשבון לחשבון' : 'שימור ידע - העברה מחשבון לחשבון.pdf',
     #'שימור ידע - מחיקת חובות':'שימור ידע - מחיקת חובות.pdf',
     #'שאילתות שומה ונכסים' :'שאילתות שומה ונכסים.pdf'
@@ -83,7 +83,7 @@ def main():
     selected_actual_name = pdf_mapping.get(selected_custom_name)
 
     if selected_actual_name:
-        pdf_folder = "pdfs"
+        pdf_folder = "data"
         file_path = os.path.join(pdf_folder, selected_actual_name)
 
         try:
