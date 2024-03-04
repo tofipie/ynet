@@ -39,7 +39,7 @@ llm = HuggingFaceHub(repo_id="google/flan-t5-xxl",
 
 
 
-DATA_PATH = "pdfs/"
+#DATA_PATH = "pdfs/"
 HUGGINGFACEHUB_API_TOKEN = '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'
 #HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN'
 
